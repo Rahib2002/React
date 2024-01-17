@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Import React
+  
+    const MyComponent = () => {
+      // Style objects for parent and child divs
+      const parentStyle = {
+        width: '80%',
+        backgroundColor: '#faebd7', // Change the color as needed
+        margin: '0 auto', // Center the parent div
+        padding: '20px', // Add padding for better visibility
+        textAlign: 'center', // Center the child divs
+      };
+  
+      const childStyle = {
+        width: '10%',
+        height: '100px', // Adjust the height as needed
+        display: 'inline-block', // Display child divs in a row
+        boxSizing: 'border-box', // Include padding and border in the width
+        marginRight: '10px', // Add margin-right for space between child divs
+      };
+  
+      // Create parent div with child divs
+      const parentDiv = React.createElement(
+        'div',
+        { style: parentStyle },
+        [
+          React.createElement('div', { key: 'red', style: { ...childStyle, backgroundColor: '#ff0000' } }),
+          React.createElement('div', { key: 'yellow', style: { ...childStyle, backgroundColor: '#ffff00' } }),
+          React.createElement('div', { key: 'green', style: { ...childStyle, backgroundColor: '#00ff00' } }),
+          React.createElement('div', { key: 'violet', style: { ...childStyle, backgroundColor: '#9400d3' } }),
+        ]
+      );
+  
+      return parentDiv;
+    };
+  
+    // Render the component
+    ReactDOM.render(React.createElement(MyComponent), document.getElementById('root'));
+  </script>
+</body>  
+</html>
