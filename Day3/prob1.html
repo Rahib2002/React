@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSX and Babel</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      // Your JSX code here
+
+      function App() {
+
+        const [theme, setTheme] = React.useState("dark"); // default: dark theme
+
+        // Apply body style when theme changes
+        React.useEffect(() => {
+          if (theme === "dark") {
+            document.body.style.backgroundColor = "black";
+            document.body.style.color = "white";
+          } else {
+            document.body.style.backgroundColor = "white";
+            document.body.style.color = "black";
+          }
+        }, [theme]);
+
+        // Select text based on theme
+        const text =
+          theme === "dark"
+            ? "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+            : "There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...";
+
+        return (
+          <div style={{ padding: "20px", textAlign: "center" }}>
+            <h2>{theme.toUpperCase()} THEME</h2>
+
+            <p>{text}</p>
+
+            <button
+              onClick={() =>
+                setTheme(theme === "dark" ? "light" : "dark")
+              }
+              style={{
+                padding: "10px 20px",
+                marginTop: "20px",
+                cursor: "pointer",
+                borderRadius: "8px",
+                border: "none",
+                fontSize: "16px",
+              }}
+            >
+              Switch to {theme === "dark" ? "Light" : "Dark"} Theme
+            </button>
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />)
+    </script>
+  </body>
+</html>
+
