@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+    function HobbyForm() {
+    const [hobbies, setHobbies] = useState([""]);
+
+    function handleChange(index, value) {
+        const newHobbies = [...hobbies];
+        newHobbies[index] = value;
+        setHobbies(newHobbies);
+    }
+
+    function addHobby() {
+        setHobbies([...hobbies, ""]);
+    }
+
+    function removeHobby(index) {
+        if (index === 0) return; // first one cannot be removed
+        const newHobbies = hobbies.filter((_, i) => i !== index);
+        setHobbies(newHobbies);
+    }
+
+    function handleSubmit() {
+        console.log("Hobbies:", hobbies);
+        alert("Check console for submitted hobbies!");
+    }
+
+    return (
+        <div style={{ width: "300px", margin: "50px auto", fontFamily: "Arial" }}>
+        <h2>Hobby Form</h2>
+
+        {hobbies.map((hobby, index) => (
+            <div key={index} style={{ marginBottom: "10px" }}>
+            <input
+                type="text"
+                placeholder="Enter hobby"
+                value={hobby}
+                onChange={(e) => handleChange(index, e.target.value)}
+                style={{ padding: "8px", width: "70%" }}
+            />
+
+            {index !== 0 && (
+                <button
+                onClick={() => removeHobby(index)}
+                style={{ marginLeft: "10px" }}
+                >
+                ❌
+                </button>
+            )}
+            </div>
+        ))}
+
+        <button onClick={addHobby} style={{ marginTop: "10px" }}>
+            ➕ Add Hobby
+        </button>
+
+        <br /><br />
+
+        <button onClick={handleSubmit} style={{ padding: "10px", width: "100%" }}>
+            Submit
+        </button>
+        </div>
+    );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<HobbyForm />);
+
+  </script>
+</html>
