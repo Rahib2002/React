@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+    function ColorPicker() {
+    const [color, setColor] = useState("");
+
+    const isValidHex = /^#([0-9A-Fa-f]{3}){1,2}$/.test(color);
+
+    return (
+        <div style={{ textAlign: "center", marginTop: "50px", fontFamily: "Arial" }}>
+        <h2>🎨 Color Picker</h2>
+
+        <input
+            type="text"
+            placeholder="Enter HEX color (e.g. #FF5733)"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            style={{
+            padding: "10px",
+            width: "250px",
+            fontSize: "16px",
+            border: "2px solid #333",
+            borderRadius: "5px"
+            }}
+        />
+
+        <div
+            style={{
+            margin: "30px auto",
+            width: "200px",
+            height: "200px",
+            backgroundColor: isValidHex ? color : "#ddd",
+            border: "2px solid black",
+            borderRadius: "10px"
+            }}
+        ></div>
+
+        {!isValidHex && color !== "" && (
+            <p style={{ color: "red", fontWeight: "bold" }}>
+            ❌ Invalid HEX color code
+            </p>
+        )}
+
+        {isValidHex && (
+            <p style={{ color: "green", fontWeight: "bold" }}>
+            ✅ Valid HEX Color
+            </p>
+        )}
+        </div>
+    );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<ColorPicker />);
+
+  </script>
+</html>
